@@ -52,10 +52,14 @@ _increment_version() {
   echo "Version is: ${VERSION}"
   _read_new_version $(_inc ${VERSION})
   echo "New version is: ${VERSION}"
+  echo "VERSION=${VERSION}" > .version
+  git add .version
+  git commit -m "New release ${VERSION}"
+  git tag ${VERSION}
 }
 
 _prepare() {
-  #TODO commented for development: _git_dirty_check
+  _git_dirty_check
   _increment_version
 }
 
