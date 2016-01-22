@@ -16,7 +16,6 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 # or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE file for more details.
 
-VERSION=0.0.1
 
 _print_usage() {
   echo "usage: $(basename $0) [--version] [--help]"
@@ -31,7 +30,7 @@ eval set -- "$OPTS"
 
 while true; do
   case "$1" in
-    -v|--version) echo "$(basename $0) version ${VERSION}"; exit 0;;
+    -v|--version) . .version; echo "$(basename $0) version ${VERSION}"; exit 0;;
     --help) _print_usage; exit 0;;
     --) shift; break;;
     *) echo "Error: option not handled by script"; exit 1;;
