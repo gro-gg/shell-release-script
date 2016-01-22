@@ -16,8 +16,15 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 # or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE file for more details.
 
+_prepare() {
+  echo "prepare"
+}
+
 _print_usage() {
   echo "usage: $(basename $0) <command>"
+  echo ""
+  echo "These are the supported commands:"
+  echo "   prepare      Prepare a release"
 }
 
 # read the options
@@ -35,5 +42,8 @@ while true; do
   esac
 done
 
-echo "$@"
+case "$1" in
+  prepare) _prepare; break;;
+  *) _print_usage; exit 0;;
+esac
 
