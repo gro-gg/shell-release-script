@@ -59,7 +59,7 @@ while true; do
 done
 
 case "$1" in
-  prepare) _prepare; break;;
+  prepare) _prepare;;
   *) _print_usage; exit 0;;
 esac
 
