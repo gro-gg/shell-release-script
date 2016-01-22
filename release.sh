@@ -36,12 +36,21 @@ _inc() {
   echo $1 | perl -pe 's/^((\d+\.)*)(\d+)(.*)$/$1.($3+1).$4/e'
 }
 
+# $1 the suggested version
+_read_new_version() {
+  #readlink /proc/$$/exe #uncomment to see the executing shell
+  if [ -z $ZSH_VERSION ]; then
+    read -e -p "Enter the new version: " -i "$1" VERSION
+  else
+    VERSION=$1
+    vared -p "Enter the new version: " -c VERSION
+  fi
+}
+
 _increment_version() {
   . .version
   echo "Version is: ${VERSION}"
-  newversion=$(_inc ${VERSION})
-  #TODO: does not work with ZSH
-  read -e -p "Enter the new version: " -i "${newversion}" VERSION
+  _read_new_version $(_inc ${VERSION})
   echo "New version is: ${VERSION}"
 }
 
