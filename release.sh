@@ -32,8 +32,22 @@ _git_dirty_check() {
   fi
 }
 
+_inc() {
+  echo $1 | perl -pe 's/^((\d+\.)*)(\d+)(.*)$/$1.($3+1).$4/e'
+}
+
+_increment_version() {
+  . .version
+  echo "Version is: ${VERSION}"
+  newversion=$(_inc ${VERSION})
+  #TODO: does not work with ZSH
+  read -e -p "Enter the new version: " -i "${newversion}" VERSION
+  echo "New version is: ${VERSION}"
+}
+
 _prepare() {
-  _git_dirty_check
+  #TODO commented for development: _git_dirty_check
+  _increment_version
 }
 
 _print_usage() {
