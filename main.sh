@@ -22,7 +22,7 @@ _print_usage() {
 }
 
 # read the options
-OPTS=$(getopt -o v --long version,help -n "$0" -- "$@")
+OPTS=$(getopt -o '' --long version,help -n "$0" -- "$@")
 if [ $? != 0 ]; then
   exit 1
 fi
