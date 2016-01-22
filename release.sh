@@ -16,6 +16,10 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 # or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE file for more details.
 
+_git_dirty_check() {
+  return $(git status --porcelain |grep -v "^??" |tail -n1 |wc -l)
+}
+
 _prepare() {
   echo "prepare"
 }
