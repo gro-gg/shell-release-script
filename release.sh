@@ -16,12 +16,24 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 # or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE file for more details.
 
+
+_is_git_dirty() {
+  echo $(git status --porcelain |grep -v "^??" |tail -n1 |wc -l)
+}
+
 _git_dirty_check() {
-  return $(git status --porcelain |grep -v "^??" |tail -n1 |wc -l)
+  if [ $(_is_git_dirty) = 1 ]; then
+    echo "There are local uncommited changes!"
+    echo "Please, commit your changes or stash them before you can prepare a release."
+    echo "Aborting"
+    exit 1
+  else
+    echo "all fine"
+  fi
 }
 
 _prepare() {
-  echo "prepare"
+  _git_dirty_check
 }
 
 _print_usage() {
