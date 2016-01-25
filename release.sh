@@ -27,8 +27,6 @@ _git_dirty_check() {
     echo "Please, commit your changes or stash them before you can prepare a release."
     echo "Aborting"
     exit 1
-  else
-    echo "all fine"
   fi
 }
 
