@@ -1,4 +1,4 @@
-#/bin/sh
+#!/usr/bin/env bash
 
 # Copyright (c) 2015 Philipp Grogg
 #
@@ -32,25 +32,14 @@ _git_dirty_check() {
   fi
 }
 
-_inc() {
+_increment_version_number() {
   echo $1 | perl -pe 's/^((\d+\.)*)(\d+)(.*)$/$1.($3+1).$4/e'
 }
 
-# $1 the suggested version
-_read_new_version() {
-  #readlink /proc/$$/exe #uncomment to see the executing shell
-  if [ -z $ZSH_VERSION ]; then
-    read -e -p "Enter the new version: " -i "$1" VERSION
-  else
-    VERSION=$1
-    vared -p "Enter the new version: " -c VERSION
-  fi
-}
-
-_increment_version() {
+_create_new_version() {
   . .version
   echo "Version is: ${VERSION}"
-  _read_new_version $(_inc ${VERSION})
+  read -e -p "Enter the new version: " -i "$(_increment_version_number ${VERSION})" VERSION
   echo "New version is: ${VERSION}"
   echo "VERSION=${VERSION}" > .version
   git add .version
@@ -61,7 +50,7 @@ _increment_version() {
 
 _prepare() {
   _git_dirty_check
-  _increment_version
+  _create_new_version
 }
 
 _print_usage() {
