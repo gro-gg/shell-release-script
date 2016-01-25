@@ -56,6 +56,8 @@ _print_usage() {
   echo ""
   echo "These are the supported commands:"
   echo "   prepare      Prepare a release"
+  echo ""
+  echo "For more information about this script visit https://github.com/gro-gg/shell-release-script"
 }
 
 # read the options
