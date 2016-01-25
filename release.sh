@@ -44,7 +44,7 @@ _create_new_version() {
   echo "VERSION=${VERSION}" > .version
   git add .version
   git commit -m "New release ${VERSION}"
-  git tag ${VERSION}
+  git tag -a ${VERSION} -m "New release ${VERSION}"
   git push --follow-tags
 }
 
