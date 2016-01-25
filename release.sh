@@ -56,6 +56,7 @@ _increment_version() {
   git add .version
   git commit -m "New release ${VERSION}"
   git tag ${VERSION}
+  git push --follow-tags
 }
 
 _prepare() {
