@@ -30,7 +30,7 @@ eval set -- "$OPTS"
 
 while true; do
   case "$1" in
-    -v|--version) . .version; echo "$(basename $0) version ${VERSION}"; exit 0;;
+    --version) . .version; echo "$(basename $0) version ${VERSION}"; exit 0;;
     --help) _print_usage; exit 0;;
     --) shift; break;;
     *) echo "Error: option not handled by script"; exit 1;;
