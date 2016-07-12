@@ -30,6 +30,23 @@ _git_dirty_check() {
   fi
 }
 
+_git_current_branch() {
+    if branch="$(\git symbolic-ref -q HEAD)"; then
+        branch=${branch##refs/heads/}
+    else
+        \git rev-parse --short -q HEAD
+    fi
+    echo $branch
+}
+
+_git_master_branch_check() {
+    if [ $(_git_current_branch) != "master" ]; then
+        echo "You are not on master branch. Only create new releases on master branch."
+        echo "Aborting"
+        exit 2
+    fi
+}
+
 _increment_version_number() {
   echo $1 | perl -pe 's/^((\d+\.)*)(\d+)(.*)$/$1.($3+1).$4/e'
 }
@@ -48,6 +65,7 @@ _create_new_version() {
 
 _prepare() {
   _git_dirty_check
+  _git_master_branch_check
   _create_new_version
 }
 
